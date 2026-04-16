@@ -12,128 +12,171 @@ body {
   overflow: hidden;
 }
 
-/* Container */
-.loader-container {
+/* Main container */
+.loader {
   height: 100vh;
   width: 100%;
-  position: relative;
+  padding: 24px 48px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px;
+  position: relative;
 }
 
-/* Subtle grid background (matches your portfolio) */
-.loader-container::before {
-  content: "";
+/* Grid background */
+.grid-bg {
   position: absolute;
   inset: 0;
-  background: 
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  opacity: 0.03;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
   background-size: 60px 60px;
-  z-index: 0;
 }
 
-/* Top Branding */
-.loader-logo {
-  font-size: 18px;
-  opacity: 0.7;
-  z-index: 1;
+/* Top */
+.loader-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 2;
 }
 
-/* Center Content */
+.logo {
+  font-size: 16px;
+  color: #ccc;
+}
+
+.nav-skeleton {
+  display: flex;
+  gap: 12px;
+}
+
+/* Center */
 .loader-center {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-}
-
-.loader-title {
-  font-size: clamp(40px, 6vw, 80px);
-  font-weight: 300;
-  letter-spacing: 1px;
-  text-align: center;
-  line-height: 1.2;
-
-  background: linear-gradient(90deg, #fff, #aaa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: fadeIn 1s ease forwards;
-}
-
-/* Bottom Section */
-.loader-bottom {
-  z-index: 1;
-}
-
-.loader-text {
-  font-size: 12px;
-  letter-spacing: 3px;
-  opacity: 0.6;
-  margin-bottom: 10px;
-}
-
-/* Progress Bar */
-.loader-bar {
-  width: 220px;
-  height: 2px;
-  background: rgba(255,255,255,0.15);
-  overflow: hidden;
   position: relative;
 }
 
-.loader-fill {
+/* Ghost UI */
+.ghost-ui {
+  position: absolute;
+  opacity: 0.15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ghost-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+/* Hero text */
+.hero-text {
+  max-width: 900px;
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: clamp(28px, 5vw, 64px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #e5e5e5;
+}
+
+.hero-text span {
+  color: #666;
+}
+
+/* Bottom */
+.loader-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.loading-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loading-text {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #aaa;
+  animation: pulse 1.5s infinite;
+}
+
+.progress-line {
+  width: 120px;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+
+.progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #fff, #888);
-  transition: width 0.25s ease;
+  background: #fff;
+  transform-origin: left;
+  transition: transform 0.2s ease;
 }
 
-/* Percentage */
-.loader-percent {
-  position: absolute;
-  right: 40px;
-  bottom: 40px;
-  font-size: clamp(60px, 10vw, 140px);
-  font-weight: 600;
-  letter-spacing: -2px;
+.progress-number {
+  font-size: clamp(60px, 10vw, 180px);
+  font-weight: 700;
+  color: #ddd;
 }
 
-/* Glow pulse behind text */
-.loader-glow {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(120,120,255,0.15), transparent 70%);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  filter: blur(80px);
-  animation: pulse 3s infinite ease-in-out;
+/* Skeleton */
+.skeleton {
+  background: #fff;
+  border-radius: 6px;
+  animation: skeleton 2s infinite ease-in-out;
+}
+
+.skeleton.small {
+  width: 50px;
+  height: 8px;
+}
+
+.skeleton.pill {
+  width: 200px;
+  height: 40px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.skeleton.big {
+  width: 600px;
+  height: 100px;
+  margin-bottom: 12px;
+}
+
+.skeleton.line {
+  width: 200px;
+  height: 10px;
+  margin-bottom: 30px;
+}
+
+.skeleton.btn {
+  width: 120px;
+  height: 40px;
 }
 
 /* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes skeleton {
+  0% { opacity: 0.05; }
+  50% { opacity: 0.15; }
+  100% { opacity: 0.05; }
 }
 
 @keyframes pulse {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
