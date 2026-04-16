@@ -5,54 +5,83 @@ function App() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let value = 0;
+    let count = 0;
 
     const interval = setInterval(() => {
-      value += Math.random() * 8; // smooth random loading feel
-      if (value >= 100) value = 100;
+      const increment = count < 85 ? Math.floor(Math.random() * 8) + 1 : 1;
+      count += increment;
 
-      setProgress(Math.floor(value));
-
-      if (value === 100) {
+      if (count >= 100) {
+        count = 100;
         clearInterval(interval);
 
         setTimeout(() => {
           window.location.replace("https://portfolio-fullstack-rushikesh.vercel.app");
-        }, 500);
+        }, 1000);
       }
-    }, 80);
+
+      setProgress(count);
+    }, 45);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="loader-container">
-      <div className="loader-glow" />
-
+    <div className="loader">
       {/* Top */}
-      <div className="loader-logo">MyPortfolio</div>
+      <div className="loader-top">
+        <div className="logo">MyPortfolio</div>
+
+        <div className="nav-skeleton">
+          <div className="skeleton small" />
+          <div className="skeleton small" />
+          <div className="skeleton small" />
+        </div>
+      </div>
 
       {/* Center */}
       <div className="loader-center">
-        <h1 className="loader-title">
-          Preparing your experience
-        </h1>
+        {/* Ghost UI */}
+        <div className="ghost-ui">
+          <div className="skeleton pill" />
+          <div className="skeleton big" />
+          <div className="skeleton line" />
+          <div className="ghost-buttons">
+            <div className="skeleton btn" />
+            <div className="skeleton btn" />
+          </div>
+        </div>
+
+        {/* Text */}
+        <div className="hero-text">
+          <h1>
+            Welcome to my portfolio! <br />
+            <span>
+              Here, you will explore a showcase of creativity, innovation, and
+              passion.
+            </span>
+          </h1>
+        </div>
       </div>
 
       {/* Bottom */}
       <div className="loader-bottom">
-        <div className="loader-text">LOADING ASSETS...</div>
+        <div className="loading-left">
+          <span className="loading-text">Loading Assets...</span>
 
-        <div className="loader-bar">
-          <div
-            className="loader-fill"
-            style={{ width: `${progress}%` }}
-          />
+          <div className="progress-line">
+            <div
+              className="progress-fill"
+              style={{ transform: `scaleX(${progress / 100})` }}
+            />
+          </div>
         </div>
+
+        <div className="progress-number">{progress}%</div>
       </div>
 
-      {/* Percentage */}
-      <div className="loader-percent">{progress}%</div>
+      {/* Grid */}
+      <div className="grid-bg" />
     </div>
   );
 }
